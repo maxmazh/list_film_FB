@@ -23,7 +23,9 @@ class MovieModel {
     init(onMoviesChanged) {
         this.onMoviesChanged = onMoviesChanged;
 
-        onSnapshot(this.collectionRef, (snapshot) => {
+        const q = query(this.collectionRef, orderBy('createdAt', 'asc'));
+
+        onSnapshot(q, (snapshot) => {
             const movies = [];
             snapshot.forEach((docSnap) => {
                 movies.push({
@@ -31,7 +33,6 @@ class MovieModel {
                     ...docSnap.data()
                 });
             });
-            // Сортируем по createdAt, если добавите это поле — иначе по порядку добавления
             this.onMoviesChanged(movies);
         });
     }
@@ -40,7 +41,8 @@ class MovieModel {
     async addMovie(title) {
         await addDoc(this.collectionRef, {
             title: title,
-            isWatched: false
+            isWatched: false,
+            createdAt: serverTimestamp()
         });
         // Перерисовка произойдёт автоматически через onSnapshot
     }

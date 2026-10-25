@@ -8,7 +8,7 @@ class MovieController {
             this.currentMovies = movies;
             this.view.render(movies);
         });
-        
+
         // 2. Привязка действий пользователя
         this.view.bindAddMovie(this.handleAddMovie.bind(this));
         this.view.bindMovieActions(
@@ -23,7 +23,6 @@ class MovieController {
     }
 
     async handleToggleWatched(id) {
-        // Нужно знать текущий статус — можно хранить актуальный массив в контроллере
         const movie = this.currentMovies?.find(m => m.id === id);
         if (!movie) return;
         await this.model.toggleWatched(id, movie.isWatched);

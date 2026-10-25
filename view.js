@@ -19,7 +19,7 @@ class MovieView {
             const div = document.createElement('div');
             div.className = 'film';
             if (film.isWatched) div.classList.add('watched');
-            div.dataset.id = film.id; // храним id Firestore в data-атрибуте
+            div.dataset.id = film.id;
 
             const circle = document.createElement('p');
             circle.className = 'circle';
